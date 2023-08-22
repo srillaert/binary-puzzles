@@ -1,4 +1,4 @@
-from line import *
+from solve import *
 
 def test_character_counts_all_three_characters():
 	result = character_counts(list("011..."))
