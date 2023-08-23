@@ -59,7 +59,7 @@ def apply_rules(line):
 	fill_line(line)
 		
 if __name__ == "__main__":	
-	matrix = [list(line.strip()) for line in open('6x6_puzzle_easy_1.txt').readlines()]
+	matrix = [list(line.strip()) for line in open('./puzzles/6x6_puzzle_easy_1.txt').readlines()]
 	
 	print("Original binary puzzle :")
 	for row in matrix:
