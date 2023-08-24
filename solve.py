@@ -8,6 +8,9 @@ def character_counts(line):
 		char_counts[char] += 1
 	return char_counts
 
+def matrix_empty_count(matrix):
+	return sum(line.count(".") for line in matrix)
+
 def replace_empty(line, el):
 	for i in range(len(line)):
 		if line[i] == '.':
@@ -65,13 +68,24 @@ if __name__ == "__main__":
 	for row in matrix:
 		print("".join(row))
 	
-	for row in matrix:
-		apply_rules(row)
+	step = 0
+	previous_empty_count = matrix_empty_count(matrix)
 	
-	for i in range(len(matrix)):
-		column = ColumnList(matrix, i)
-		apply_rules(column)
-			
-	print("After one step :")
-	for row in matrix:
-		print("".join(row))
+	while True:
+		for row in matrix:
+			apply_rules(row)
+		
+		for i in range(len(matrix)):
+			column = ColumnList(matrix, i)
+			apply_rules(column)
+		
+		step = step + 1
+				
+		print("After " + str(step) + " step(s) :")
+		for row in matrix:
+			print("".join(row))
+		
+		empty_count = matrix_empty_count(matrix)
+		if empty_count == 0 or empty_count == previous_empty_count:
+			break
+		previous_empty_count = empty_count

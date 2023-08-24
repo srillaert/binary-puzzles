@@ -13,6 +13,11 @@ def test_character_counts_only_empty():
 	assert(result["."] == 2)
 
 
+def test_matrix_empty_count():
+	matrix = [["0", "."], [".", "0"]]
+	assert(matrix_empty_count(matrix) == 2)
+
+	
 def test_fill_line_with_1():
 	line = list("0.")
 	fill_line(line)
