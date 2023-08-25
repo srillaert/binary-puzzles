@@ -50,6 +50,21 @@ def test_sides_double_middle():
 	sides_double(line)
 	assert(line == list(".1001."))
 
+def test_possible_combinations_1():
+	line = list("0...0.")
+	possible_combinations(line)
+	assert(line == list("0...01"))
+
+def test_possible_combinations_2():
+	line = list("0..1.0")
+	possible_combinations(line)
+	assert(line == list("010110"))
+
+def test_possible_combinations_3():
+	line = list("1.0..1")
+	possible_combinations(line)
+	assert(line == list("100101"))
+
 def test_column_list_getitem():
 	matrix = [[1, 2], [3, 4]]
 	

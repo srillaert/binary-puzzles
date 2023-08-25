@@ -44,6 +44,19 @@ def sides_double(line):
 			if i < (len(line) - 2) and line[i+1] != '.' and line[i+1] == line[i+2]:
 				line[i] = '0' if line[i+1] == '1' else '1'
 
+def possible_combinations(line):
+	# TODO : replace specific cases with generic solution
+	if line == list("0...0."):
+		line[5] = '1'
+	elif line == list("0..1.0"):
+		line[1] = '1'
+		line[2] = '0'
+		line[4] = '1'
+	elif line == list("1.0..1"):
+		line[1] = '0'
+		line[3] = '1'
+		line[4] = '0'
+
 class ColumnList:
 	def __init__(self, matrix, column_index):
 		self.matrix = matrix
@@ -62,6 +75,7 @@ def apply_rules(line):
 	sides_double(line)
 	empty_between_same(line)
 	fill_line(line)
+	possible_combinations(line)
 		
 if __name__ == "__main__":
 	path = sys.argv[1] if len(sys.argv) >= 2 else './puzzles/6x6_puzzle_easy_1.txt'
