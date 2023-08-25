@@ -1,3 +1,5 @@
+import sys
+
 def character_counts(line):
 	char_counts = { 
 		"0" : 0,
@@ -61,8 +63,9 @@ def apply_rules(line):
 	empty_between_same(line)
 	fill_line(line)
 		
-if __name__ == "__main__":	
-	matrix = [list(line.strip()) for line in open('./puzzles/6x6_puzzle_easy_1.txt').readlines()]
+if __name__ == "__main__":
+	path = sys.argv[1] if len(sys.argv) >= 2 else './puzzles/6x6_puzzle_easy_1.txt'
+	matrix = [list(line.strip()) for line in open(path).readlines()]
 	
 	print("Original binary puzzle :")
 	for row in matrix:
