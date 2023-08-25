@@ -87,18 +87,15 @@ def merge_row_with_permutation(row, permutation):
     return result
     
 def possible_combinations(line):
-	# TODO : replace specific cases with generic solution
-	if line == list("0...0."):
-		line[5] = '1'
-	else:
-		counts = character_counts(line)
-		permutations = get_permutations((len(line) // 2) - counts["0"], (len(line) // 2) - counts["1"])
-		lines_to_test = [merge_row_with_permutation(line, permutation) for permutation in permutations]
-		valid_lines = [line for line in lines_to_test if maximum_two(line)]	
-		if len(valid_lines) == 1:
-			valid_line = valid_lines[0]
-			for i in range(len(line)):
-				line[i] = valid_line[i]
+	counts = character_counts(line)
+	permutations = get_permutations((len(line) // 2) - counts["0"], (len(line) // 2) - counts["1"])
+	lines_to_test = [merge_row_with_permutation(line, permutation) for permutation in permutations]
+	valid_lines = [line for line in lines_to_test if maximum_two(line)]	
+	for i in range(len(line)):
+		if line[i] == '.':
+			first_valid_line = valid_lines[0]
+			if all(valid_line[i] == first_valid_line[i] for valid_line in valid_lines):
+				line[i] = first_valid_line[i]
 
 class ColumnList:
 	def __init__(self, matrix, column_index):
