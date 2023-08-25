@@ -10,6 +10,15 @@ def character_counts(line):
 		char_counts[char] += 1
 	return char_counts
 
+def maximum_two(line):
+	previous = ""
+	for char in line:
+		count = count + 1 if char == previous else 1
+		if count > 2:
+			return False
+		previous = char
+	return True
+
 def matrix_empty_count(matrix):
 	return sum(line.count(".") for line in matrix)
 
@@ -43,19 +52,53 @@ def sides_double(line):
 				line[i] = '0' if line[i-1] == '1' else '1'
 			if i < (len(line) - 2) and line[i+1] != '.' and line[i+1] == line[i+2]:
 				line[i] = '0' if line[i+1] == '1' else '1'
+				
+def generate_permutations(current, n, m, result):
+    if n == 0 and m == 0:
+        result.append(current)
+        return
+    
+    if n > 0:
+        generate_permutations(current + '0', n - 1, m, result)
+    
+    if m > 0:
+        generate_permutations(current + '1', n, m - 1, result)
 
+def get_permutations(n, m):
+    permutations = []
+    generate_permutations('', n, m, permutations)
+    return permutations
+    
+def merge_row_with_permutation(row, permutation):
+    result = []
+    permutation_index = 0
+
+    for char in row:
+        if char == '.':
+            if permutation_index < len(permutation):
+                result.append(permutation[permutation_index])
+                permutation_index += 1
+            else:
+                # If no more characters in permutation, keep the '.' as is
+                result.append('.')
+        else:
+            result.append(char)
+
+    return result
+    
 def possible_combinations(line):
 	# TODO : replace specific cases with generic solution
 	if line == list("0...0."):
 		line[5] = '1'
-	elif line == list("0..1.0"):
-		line[1] = '1'
-		line[2] = '0'
-		line[4] = '1'
-	elif line == list("1.0..1"):
-		line[1] = '0'
-		line[3] = '1'
-		line[4] = '0'
+	else:
+		counts = character_counts(line)
+		permutations = get_permutations((len(line) // 2) - counts["0"], (len(line) // 2) - counts["1"])
+		lines_to_test = [merge_row_with_permutation(line, permutation) for permutation in permutations]
+		valid_lines = [line for line in lines_to_test if maximum_two(line)]	
+		if len(valid_lines) == 1:
+			valid_line = valid_lines[0]
+			for i in range(len(line)):
+				line[i] = valid_line[i]
 
 class ColumnList:
 	def __init__(self, matrix, column_index):

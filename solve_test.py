@@ -12,11 +12,23 @@ def test_character_counts_only_empty():
 	assert(result["1"] == 0)
 	assert(result["."] == 2)
 
+def test_maximum_two():
+	assert(maximum_two(list("1100")) == True)
+	assert(maximum_two(list("001110")) == False) 
 
 def test_matrix_empty_count():
 	matrix = [["0", "."], [".", "0"]]
 	assert(matrix_empty_count(matrix) == 2)
 
+def test_permutations():
+	permutations = get_permutations(1, 2)
+	assert(permutations == ['011', '101', '110'])
+
+def test_merge_row_with_permutation():
+	row = list("0..1.0")
+	permutation = '011'
+	merged_string = merge_row_with_permutation(row, permutation)
+	assert(merged_string == list("001110"))
 	
 def test_fill_line_with_1():
 	line = list("0.")
