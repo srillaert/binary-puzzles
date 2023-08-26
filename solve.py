@@ -86,11 +86,11 @@ def merge_row_with_permutation(row, permutation):
 
     return result
     
-def possible_combinations(line):
+def possible_combinations(line, not_allowed_lines = []):
 	counts = character_counts(line)
 	permutations = get_permutations((len(line) // 2) - counts["0"], (len(line) // 2) - counts["1"])
 	lines_to_test = [merge_row_with_permutation(line, permutation) for permutation in permutations]
-	valid_lines = [line for line in lines_to_test if maximum_two(line)]	
+	valid_lines = [line for line in lines_to_test if maximum_two(line) and line not in not_allowed_lines]	
 	for i in range(len(line)):
 		if line[i] == '.':
 			first_valid_line = valid_lines[0]
@@ -111,11 +111,11 @@ class ColumnList:
 	def __len__(self):
 		return len(self.matrix)
        
-def apply_rules(line):
+def apply_rules(line, other_lines):
 	sides_double(line)
 	empty_between_same(line)
 	fill_line(line)
-	possible_combinations(line)
+	possible_combinations(line, other_lines)
 		
 if __name__ == "__main__":
 	path = sys.argv[1] if len(sys.argv) >= 2 else './puzzles/6x6_puzzle_easy_1.txt'
@@ -130,11 +130,13 @@ if __name__ == "__main__":
 	
 	while True:
 		for row in matrix:
-			apply_rules(row)
+			other_rows = [other_row for other_row in matrix if other_row != row]
+			apply_rules(row, other_rows)
 		
 		for i in range(len(matrix)):
+			other_columns = [ColumnList(matrix, j) for j in range(len(matrix)) if j != i]
 			column = ColumnList(matrix, i)
-			apply_rules(column)
+			apply_rules(column, other_columns)
 		
 		step = step + 1
 				

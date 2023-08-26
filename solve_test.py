@@ -77,6 +77,19 @@ def test_possible_combinations_3():
 	possible_combinations(line)
 	assert(line == list("100101"))
 
+def test_possible_combinations_no_two_rows_same():
+	line = list("1..010")
+	not_allowed_lines = [
+		list("101010"), # this row limits our combinations to 1
+		list("001101"),
+		list("010011"),
+		list("...10."),
+		list(".1010.")
+	]
+	possible_combinations(line, not_allowed_lines)
+	assert(line == list("110010"))
+
+
 def test_column_list_getitem():
 	matrix = [[1, 2], [3, 4]]
 	
