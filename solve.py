@@ -134,7 +134,7 @@ if __name__ == "__main__":
 			apply_rules(row, other_rows)
 		
 		for i in range(len(matrix)):
-			other_columns = [ColumnList(matrix, j) for j in range(len(matrix)) if j != i]
+			other_columns = [list(ColumnList(matrix, j)) for j in range(len(matrix)) if j != i]
 			column = ColumnList(matrix, i)
 			apply_rules(column, other_columns)
 		
