@@ -146,12 +146,26 @@ class ColumnList:
 
 	def __len__(self):
 		return len(self.matrix)
-       
+
 def apply_rules(line, other_lines):
 	sides_double(line)
 	empty_between_same(line)
 	fill_line(line)
 	possible_combinations(line, other_lines)
+
+class Puzzle:
+	def __init__(self, matrix):
+		self.rows = matrix
+		self.columns = [ColumnList(matrix, i) for i in range(len(matrix))]
+	
+	def apply_rules(self):
+		for row in self.rows:
+			other_rows = [other_row for other_row in self.rows if other_row != row]
+			apply_rules(row, other_rows)
+		
+		for column in self.columns:
+			other_columns = [list(other_column) for other_column in self.columns if other_column != column]
+			apply_rules(column, other_columns)      
 	
 def solve_puzzle(path):
 	matrix = [list(line.strip()) for line in open(path).readlines()]
@@ -162,21 +176,15 @@ def solve_puzzle(path):
 	
 	step = 0
 	previous_empty_count = matrix_empty_count(matrix)
+	puzzle = Puzzle(matrix)
 	
 	while True:
-		for row in matrix:
-			other_rows = [other_row for other_row in matrix if other_row != row]
-			apply_rules(row, other_rows)
-		
-		for i in range(len(matrix)):
-			other_columns = [list(ColumnList(matrix, j)) for j in range(len(matrix)) if j != i]
-			column = ColumnList(matrix, i)
-			apply_rules(column, other_columns)
+		puzzle.apply_rules()
 		
 		step = step + 1
 				
 		print("After " + str(step) + " step(s) :")
-		for row in matrix:
+		for row in puzzle.rows:
 			print("".join(row))
 		
 		empty_count = matrix_empty_count(matrix)
