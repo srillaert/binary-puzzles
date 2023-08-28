@@ -18,6 +18,42 @@ def maximum_two(line):
 			return False
 		previous = char
 	return True
+	
+def is_solved_line(line, size):		
+	# each row and column contains as many zeroes as ones		
+	counts = character_counts(line)
+	if counts["0"] != size // 2 or counts["1"] != size // 2:
+		return False
+	
+	if not maximum_two(line):
+		return False
+		
+	return True
+	
+def is_solved_puzzle(matrix):
+	size = len(matrix)
+	if any(len(row) != size for row in matrix):
+		return False # not a valid puzzle
+	
+	if not all(is_solved_line(line, size) for line in matrix):
+		return False
+		
+	# each row in unique
+	for i in range(len(matrix)):
+		for j in range(i+1, len(matrix)):
+			if matrix[i] == matrix[j]:
+				return False
+	
+	columns = [ColumnList(matrix, i) for i in range(len(matrix))]
+	if not all(is_solved_line(column, size) for column in columns):
+		return False
+	# each column is unique
+	for i in range(len(columns)):
+		for j in range(i+1, len(columns)):
+			if columns[i] == columns[j]:
+				return False	
+
+	return True
 
 def matrix_empty_count(matrix):
 	return sum(line.count(".") for line in matrix)
@@ -116,9 +152,8 @@ def apply_rules(line, other_lines):
 	empty_between_same(line)
 	fill_line(line)
 	possible_combinations(line, other_lines)
-		
-if __name__ == "__main__":
-	path = sys.argv[1] if len(sys.argv) >= 2 else './puzzles/6x6_puzzle_easy_1.txt'
+	
+def solve_puzzle(path):
 	matrix = [list(line.strip()) for line in open(path).readlines()]
 	
 	print("Original binary puzzle :")
@@ -148,3 +183,8 @@ if __name__ == "__main__":
 		if empty_count == 0 or empty_count == previous_empty_count:
 			break
 		previous_empty_count = empty_count
+	return matrix
+		
+if __name__ == "__main__":
+	path = sys.argv[1] if len(sys.argv) >= 2 else './puzzles/6x6_puzzle_easy_1.txt'
+	solve_puzzle(path)

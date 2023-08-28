@@ -1,4 +1,5 @@
 from solve import *
+from pathlib import Path
 
 def test_character_counts_all_three_characters():
 	result = character_counts(list("011..."))
@@ -120,3 +121,10 @@ def test_column_list_len():
 	second_column[1] = 4
 	
 	assert(matrix == [[1, 2], [3, 4]])
+
+def test_solve_puzzle():
+	directory = Path('./puzzles/')
+	for file_path in directory.iterdir():
+		if file_path.is_file():
+			solution = solve_puzzle(file_path.absolute())
+			assert(is_solved_puzzle(solution))
