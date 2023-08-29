@@ -147,7 +147,7 @@ class ColumnList:
 	def __len__(self):
 		return len(self.matrix)
 
-def apply_rules(line, other_lines):
+def apply_techniques(line, other_lines):
 	sides_double(line)
 	empty_between_same(line)
 	fill_line(line)
@@ -158,14 +158,14 @@ class Puzzle:
 		self.rows = matrix
 		self.columns = [ColumnList(matrix, i) for i in range(len(matrix))]
 	
-	def apply_rules(self):
+	def apply_techniques(self):
 		for row in self.rows:
 			other_rows = [other_row for other_row in self.rows if other_row != row]
-			apply_rules(row, other_rows)
+			apply_techniques(row, other_rows)
 		
 		for column in self.columns:
 			other_columns = [list(other_column) for other_column in self.columns if other_column != column]
-			apply_rules(column, other_columns)      
+			apply_techniques(column, other_columns)      
 	
 def solve_puzzle(path):
 	matrix = [list(line.strip()) for line in open(path).readlines()]
@@ -179,7 +179,7 @@ def solve_puzzle(path):
 	puzzle = Puzzle(matrix)
 	
 	while True:
-		puzzle.apply_rules()
+		puzzle.apply_techniques()
 		
 		step = step + 1
 				
