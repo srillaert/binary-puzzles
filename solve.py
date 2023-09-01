@@ -6,6 +6,20 @@ def apply_techniques(line, other_lines):
 	empty_between_same(line)
 	fill_line(line)
 	possible_combinations(line, other_lines)
+	
+class ColumnList:
+	def __init__(self, matrix, column_index):
+		self.matrix = matrix
+		self.column_index = column_index
+
+	def __getitem__(self, index):
+		return self.matrix[index][self.column_index]
+
+	def __setitem__(self, index, value):
+		self.matrix[index][self.column_index] = value
+
+	def __len__(self):
+		return len(self.matrix)	
 
 class Puzzle:
 	def __init__(self, matrix):

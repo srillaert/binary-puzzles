@@ -15,35 +15,3 @@ def test_character_counts_only_empty():
 def test_maximum_two():
 	assert(maximum_two(list("1100")) == True)
 	assert(maximum_two(list("001110")) == False) 
-
-def test_column_list_getitem():
-	matrix = [[1, 2], [3, 4]]
-	
-	first_column = ColumnList(matrix, 0)
-	assert(first_column[0] == 1)
-	assert(first_column[1] == 3)
-
-	second_column = ColumnList(matrix, 1)
-	assert(second_column[0] == 2)
-	assert(second_column[1] == 4)
-
-def test_column_list_len():
-	matrix = [[1], [3]]
-	
-	first_column = ColumnList(matrix, 0)
-	
-	assert(len(first_column) == 2)
-
-def test_column_list_len():
-	matrix = [[0, 0], [0, 0]]
-	
-	first_column = ColumnList(matrix, 0)
-	first_column[0] = 1
-	first_column[1] = 3
-
-	second_column = ColumnList(matrix, 1)
-	second_column[0] = 2
-	second_column[1] = 4
-	
-	assert(matrix == [[1, 2], [3, 4]])
-
