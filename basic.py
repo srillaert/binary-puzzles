@@ -16,14 +16,3 @@ def maximum_two(line):
 			return False
 		previous = char
 	return True
-	
-def is_solved_line(line, size):		
-	# each row and column contains as many zeroes as ones		
-	counts = character_counts(line)
-	if counts["0"] != size // 2 or counts["1"] != size // 2:
-		return False
-	
-	if not maximum_two(line):
-		return False
-		
-	return True
