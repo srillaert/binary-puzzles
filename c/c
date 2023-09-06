@@ -1,0 +1,2 @@
+gcc -o solve solve.c -lm
+./solve
