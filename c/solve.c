@@ -1,3 +1,4 @@
+#include "assert.c"
 #include<math.h>
 #include<stdio.h>
 #include<string.h>
@@ -20,22 +21,6 @@ Matrix matrix_create(char* matrix_array) {
 	return matrix;
 }
 
-void assert_void_p(void* expected, void* actual) {
-	if (actual == expected) {
-		printf("Passed.\n");
-	} else {
-		printf("Failed. Expected '%p' but got '%p'.\n", expected, actual);
-	}
-}
-
-void assert_size_t(size_t expected, size_t actual) {
-	if (actual == expected) {
-		printf("Passed.\n");
-	} else {
-		printf("Failed. Expected '%zu' but got '%zu'.\n", expected, actual);
-	}
-}
-
 void matrix_create_test() {
 	char puzzle[] = "..0.";
 
@@ -47,14 +32,6 @@ void matrix_create_test() {
 
 char line_get(Line line, int index) {
 	return *(line.base_address + index * line.multiplier);
-}
-
-void assert_char(char expected, char actual) {
-	if (actual == expected) {
-		printf("Passed.\n");
-	} else {
-		printf("Failed. Expected '%c' but got '%c'.\n", expected, actual);
-	}
 }
 
 void line_get_test_column() {
