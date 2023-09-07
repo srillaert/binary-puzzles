@@ -1,6 +1,5 @@
 #include "assert.c"
-#include "solve.c"
-#include<stdio.h>
+#include "techniques.c"
 
 void matrix_create_test() {
 	char puzzle[] = "..0.";
@@ -30,9 +29,7 @@ void line_get_test_row() {
 }
 
 void apply_count_technique_test() {
-	const char* initial = "0.";
-	char actual[100];     
-	strcpy(actual, initial);
+	char actual[] = ".1";
 	Line line = { actual, 1, 2 };
 
 	apply_count_technique(line);
