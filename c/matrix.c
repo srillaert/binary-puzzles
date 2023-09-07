@@ -1,6 +1,3 @@
-#include<math.h>
-#include<string.h>
-
 typedef struct Matrix {
 	char* matrix_array;
 	size_t width;

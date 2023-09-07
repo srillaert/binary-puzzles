@@ -1,5 +1,3 @@
-#include "matrix.c"
-
 LineCount line_count_characters(Line line) {
 	LineCount line_count = { 0, 0, 0 };
 	for(int i=0; i<line.width; i++) {
