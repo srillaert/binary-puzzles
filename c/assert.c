@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 
 void assert_char(char expected, char actual) {
 	if (actual == expected) {
@@ -24,3 +25,10 @@ void assert_size_t(size_t expected, size_t actual) {
 	}
 }
 
+void assert_str(char* expected, char* actual) {
+	if (!strcmp(actual, expected)) {
+		printf("Passed.\n");
+	} else {
+		printf("Failed. Expected '%s' but got '%s'.\n", expected, actual);
+	}
+}

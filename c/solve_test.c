@@ -29,11 +29,24 @@ void line_get_test_row() {
 	assert_char('.', line_get(second_row, 1));
 }
 
+void apply_count_technique_test() {
+	const char* initial = "0.";
+	char actual[100];     
+	strcpy(actual, initial);
+	Line line = { actual, 1, 2 };
+
+	apply_count_technique(line);
+
+	assert_str("01", actual);
+}
+
 int main(void) {
 	matrix_create_test(); 
 
 	line_get_test_column();
 	line_get_test_row();
+
+	apply_count_technique_test();
 
 	return 0;
 }
