@@ -1,3 +1,3 @@
 #!/bin/bash -e
-gcc -o solve solve.c -lm
-./solve
+gcc -o solve_test solve_test.c -lm
+./solve_test
