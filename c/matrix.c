@@ -22,6 +22,15 @@ Matrix matrix_create(char* matrix_array) {
 	return matrix;
 }
 
+void matrix_print(Matrix matrix, FILE *stream) {
+	for(int i=0; i<matrix.width; i++) {
+		for(int j=0; j<matrix.width; j++) {
+			fputc(matrix.matrix_array[i*matrix.width+j], stream);
+		}
+		fputc('\n', stream);
+	}
+}
+
 char line_get(Line line, int index) {
 	return line.base_address[index * line.multiplier];
 }

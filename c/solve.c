@@ -1,5 +1,10 @@
+#include<math.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
+#include "assert.c"
+#include "matrix.c"
+#include "techniques.c"
 
 int main(int argc, char* argv[]) {
 	char* path = argc < 2 ? "../puzzles/6x6_puzzle_easy_1.txt" : argv[1];
@@ -20,7 +25,7 @@ int main(int argc, char* argv[]) {
 	printf("Puzzle is %d width\n", width);
 	
 	int puzzle_array_size = width * width;
-	char* puzzle_array = malloc(sizeof(char) * puzzle_array_size);
+	char* puzzle_array = malloc(sizeof(char) * (puzzle_array_size + 1));
 	
 	rewind(stream);
 	int i=0;
@@ -37,6 +42,9 @@ int main(int argc, char* argv[]) {
 			printf("Only found %d elements, that is less than the expected %dx%d array\n", i, width, width);
 			return 1;
 	}
+	puzzle_array[puzzle_array_size] = '\0';
+	Matrix matrix = matrix_create(puzzle_array);
+	matrix_print(matrix, stdout);
 
 	fclose(stream);
 
