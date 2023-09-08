@@ -14,5 +14,6 @@ int main(void) {
 
 	apply_count_technique_test();
 
+	print_test_summary();
 	return 0;
 }
