@@ -160,4 +160,5 @@ cython_debug/
 #.idea/
 
 # C
+c/solve
 c/solve_test
