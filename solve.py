@@ -37,6 +37,8 @@ class Puzzle:
 			
 def matrix_empty_count(matrix):
 	return sum(line.count(".") for line in matrix)
+
+max_steps = 14 * 14 # Every step an element needs to be found, otherwise we are stuck. The biggest puzzles on binarypuzzle.com have 14 * 14 elements.
 	
 def solve_puzzle(path):
 	matrix = [list(line.strip()) for line in open(path).readlines()]
@@ -49,7 +51,7 @@ def solve_puzzle(path):
 	previous_empty_count = matrix_empty_count(matrix)
 	puzzle = Puzzle(matrix)
 	
-	while True:
+	while step < max_steps:
 		puzzle.apply_techniques()
 		
 		step = step + 1
@@ -65,5 +67,10 @@ def solve_puzzle(path):
 	return matrix
 		
 if __name__ == "__main__":
-	path = sys.argv[1] if len(sys.argv) >= 2 else './puzzles/6x6_puzzle_easy_1.txt'
+	if len(sys.argv) <= 1:
+		print("Usage: " + sys.argv[0] + " FILE [MAX_STEPS]");
+		exit(0)
+	path = sys.argv[1]
+	if len(sys.argv) >= 3:
+		max_steps = int(sys.argv[2]) 	
 	solve_puzzle(path)
