@@ -73,7 +73,7 @@ def test_matrix_empty_count():
 	assert(matrix_empty_count(matrix) == 2)
 
 def test_solve_puzzle():
-	directory = Path('./puzzles/')
+	directory = Path(__file__).resolve().parent.parent / 'puzzles'
 	for file_path in directory.iterdir():
 		if file_path.is_file():
 			solution = solve_puzzle(file_path.absolute())
